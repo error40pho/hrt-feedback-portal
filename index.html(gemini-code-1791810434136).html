@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HRT Fund JHB — Feedback & Community Portal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #e0f2fe 0%, #fce7f3 35%, #ffffff 50%, #fce7f3 65%, #e0f2fe 100%);
+      background-attachment: fixed;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 text-slate-800">
+
+  <div class="max-w-3xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <header class="text-center space-y-2">
+      <h1 class="text-3xl font-bold text-slate-900 tracking-tight">HRT Fund JHB</h1>
+      <p class="text-slate-600 max-w-xl mx-auto font-medium text-sm">Community Feedback, Inquiries & Collaboration Portal</p>
+    </header>
+
+    <!-- Main Form Card -->
+    <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-pink-200/80 p-6 md:p-10">
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-slate-900 mb-2">We want to hear from you</h2>
+        <p class="text-slate-600 text-sm">
+          Whether you have received HRT assistance, attended an event, wish to partner or donate, or have questions or concerns, please connect with us below.
+        </p>
+      </div>
+
+      <form id="feedbackForm" class="space-y-6">
+        
+        <!-- SECTION 1: Personal & Contact Information -->
+        <div class="space-y-4">
+          <h3 class="text-base font-bold text-slate-900 border-b border-pink-100 pb-2">1. Your Contact Information</h3>
+          
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">Preferred Name *</label>
+            <input type="text" id="preferredName" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition" placeholder="How should we address you?">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number / WhatsApp *</label>
+              <input type="tel" id="phoneNumber" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition" placeholder="0761234567">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address *</label>
+              <input type="email" id="emailAddress" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition" placeholder="name@example.com">
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: How showing up -->
+        <div class="space-y-4 pt-4">
+          <h3 class="text-base font-bold text-slate-900 border-b border-pink-100 pb-2">2. How are you showing up to the fund today?</h3>
+          
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">Please select the option that best describes your engagement *</label>
+            <select id="showingUpCategory" required class="w-full px-3.5 py-2.5 border border-pink-300 rounded-xl bg-pink-50/50 text-slate-900 text-sm font-medium transition">
+              <option value="">Select how you are showing up...</option>
+              <optgroup label="Direct Fund Engagement">
+                <option value="Recipient — HRT Relief Fund">I HAVE received HRT / Financial Assistance through the Triage Fund</option>
+                <option value="Applicant — Active Queue">I am an ACTIVE APPLICANT currently in the Triage Queue (RED / YELLOW / GREEN)</option>
+              </optgroup>
+              <optgroup label="Community & Events">
+                <option value="Community — Event Attendee / Participant">I have attended a Community Event / Fundraiser (e.g., Smoking Kills, Gallery Exhibitions)</option>
+                <option value="Community — General Trans & Gender Diverse Member">I am a Trans / Gender Diverse community member seeking general support</option>
+              </optgroup>
+              <optgroup label="Growth, Partnerships & Donors">
+                <option value="Growth, Partnerships & Donors">Growth, Partnerships & Donors (Collaborators, Sponsors, Media)</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="General Community Member">Other / General Concern</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- DYNAMIC CONDITIONAL SECTION: Direct Fund Recipients & Applicants -->
+          <div id="recipientSubFields" class="hidden p-5 rounded-2xl bg-pink-50/80 border border-pink-200 space-y-4 transition-all">
+            <div class="p-3.5 bg-pink-100/80 rounded-xl border border-pink-300/60 text-pink-950 font-semibold text-xs md:text-sm flex items-start gap-2.5">
+              <span class="text-base">🌸</span>
+              <span>We prioritize reaching the questions and concerns of our trans family first, you are at the top of our list.</span>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">What area of support or assistance do you need today? *</label>
+              <select id="recipientSupportArea" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition">
+                <option value="">Select area of support...</option>
+                <option value="Financial Issues / Delays">Financial Issues / Delays</option>
+                <option value="Support / Care">Support / Care & Mutual Aid</option>
+                <option value="Concerns / Safety & Security">Concerns / Safety & Security</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- DYNAMIC CONDITIONAL SECTION: Growth, Partnerships & Donors Details -->
+          <div id="partnershipSubFields" class="hidden p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 space-y-4 transition-all">
+            <h4 class="text-sm font-bold text-sky-900 flex items-center gap-2">
+              <span>🤝</span> Growth, Partnerships & Professional Engagement
+            </h4>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">Which category best defines your organization or inquiry? *</label>
+              <select id="partnerSubCategory" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition">
+                <option value="">Select sub-category...</option>
+                <option value="Collaborator — Event / Cultural Partner">Collaborator — Event / Cultural Partner ("Potential Collaborator for Events, Venues, Artists, Performance")</option>
+                <option value="Donor / Sponsor — Corporate or Individual">Donor / Sponsor — Corporate or Individual ("Donor, Sponsor, or Funding Partner looking to support/grow the fund")</option>
+                <option value="Media / Press / Academic Research">Media / Press / Academic Research ("Media, Press, or Academic Inquiry")</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Organization / Publication / Collective Name</label>
+                <input type="text" id="organizationName" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-900 text-xs transition" placeholder="e.g. Studio 404, Brand, Publication">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Your Professional Role / Position</label>
+                <input type="text" id="professionalRole" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-900 text-xs transition" placeholder="e.g. Creative Producer, Journalist, Coordinator">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: Message Type & Input -->
+        <div class="space-y-4 pt-4">
+          <h3 class="text-base font-bold text-slate-900 border-b border-pink-100 pb-2">3. Your Message, Feedback or Proposal</h3>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">Nature of your submission *</label>
+            <select id="submissionType" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition">
+              <option value="">Select nature of message...</option>
+              <option value="Feedback / Recipient Testimonial">Feedback / Recipient Experience</option>
+              <option value="General Question / Inquiry">General Question / Inquiry</option>
+              <option value="Urgency / Application Status Check">Urgency / Application Status Check</option>
+              <option value="Collaboration / Partnership Proposal">Collaboration / Partnership Proposal</option>
+              <option value="Constructive Concern / Grievance">Concern or Grievance</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">Your Message / Details *</label>
+            <textarea id="messageContent" required rows="5" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl bg-white text-slate-900 text-sm transition" placeholder="Please share your thoughts, question, feedback, or proposal details..."></textarea>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-sky-600/20 transition duration-150">
+          Submit Message
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Processed TSV Output for Database Integration -->
+    <div id="resultCard" class="hidden bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-sky-200/80 p-6 md:p-8 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-900">Submission Logged</h2>
+        <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">Logged</span>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-sm space-y-1">
+        <p><strong>Timestamp:</strong> <span id="resTimestamp"></span></p>
+        <p><strong>Preferred Name:</strong> <span id="resPreferredName"></span></p>
+        <p><strong>Engagement:</strong> <span id="resEngagement"></span></p>
+        <p><strong>Submission Type:</strong> <span id="resType"></span></p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Master Database Format (TSV Output)</label>
+        <textarea id="tsvOutput" readonly rows="3" class="w-full font-mono text-xs p-3.5 border border-slate-200 rounded-xl bg-slate-100 text-slate-800 focus:ring-0"></textarea>
+      </div>
+
+      <button id="copyBtn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition duration-150">
+        Copy TSV to Clipboard for Google Sheets
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const showingUpSelect = document.getElementById('showingUpCategory');
+    const recipientSubFields = document.getElementById('recipientSubFields');
+    const recipientSupportArea = document.getElementById('recipientSupportArea');
+    const partnershipSubFields = document.getElementById('partnershipSubFields');
+    const partnerSubCategory = document.getElementById('partnerSubCategory');
+
+    showingUpSelect.addEventListener('change', function() {
+      const val = this.value;
+
+      // Handle Direct Recipients & Applicants
+      if (val === 'Recipient — HRT Relief Fund' || val === 'Applicant — Active Queue') {
+        recipientSubFields.classList.remove('hidden');
+        recipientSupportArea.setAttribute('required', 'required');
+      } else {
+        recipientSubFields.classList.add('hidden');
+        recipientSupportArea.removeAttribute('required');
+      }
+
+      // Handle Partnerships & Donors
+      if (val === 'Growth, Partnerships & Donors') {
+        partnershipSubFields.classList.remove('hidden');
+        partnerSubCategory.setAttribute('required', 'required');
+      } else {
+        partnershipSubFields.classList.add('hidden');
+        partnerSubCategory.removeAttribute('required');
+      }
+    });
+
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const now = new Date();
+      const timestamp = now.toLocaleDateString('en-ZA') + ' ' + now.toLocaleTimeString('en-ZA');
+      
+      const preferredName = document.getElementById('preferredName').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const emailAddress = document.getElementById('emailAddress').value;
+      
+      let showingUp = showingUpSelect.value;
+      const val = showingUpSelect.value;
+
+      if (val === 'Recipient — HRT Relief Fund' || val === 'Applicant — Active Queue') {
+        showingUp = `${val} [Area: ${recipientSupportArea.value}]`;
+      } else if (val === 'Growth, Partnerships & Donors') {
+        const subCat = partnerSubCategory.value;
+        const orgName = document.getElementById('organizationName').value;
+        const profRole = document.getElementById('professionalRole').value;
+        showingUp = `${subCat}${orgName ? ' [' + orgName + (profRole ? ' - ' + profRole : '') + ']' : ''}`;
+      }
+
+      const submissionType = document.getElementById('submissionType').value;
+      const messageContent = document.getElementById('messageContent').value.replace(/\n/g, ' ');
+
+      document.getElementById('resultCard').classList.remove('hidden');
+      document.getElementById('resTimestamp').textContent = timestamp;
+      document.getElementById('resPreferredName').textContent = preferredName;
+      document.getElementById('resEngagement').textContent = showingUp;
+      document.getElementById('resType').textContent = submissionType;
+
+      const tsvRow = [
+        timestamp,
+        preferredName,
+        phoneNumber,
+        emailAddress,
+        showingUp,
+        submissionType,
+        messageContent
+      ].join('\t');
+
+      document.getElementById('tsvOutput').value = tsvRow;
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      const tsvText = document.getElementById('tsvOutput');
+      tsvText.select();
+      navigator.clipboard.writeText(tsvText.value).then(() => {
+        this.textContent = 'Copied to Clipboard!';
+        this.classList.replace('bg-pink-500', 'bg-emerald-600');
+        setTimeout(() => {
+          this.textContent = 'Copy TSV to Clipboard for Google Sheets';
+          this.classList.replace('bg-emerald-600', 'bg-pink-500');
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
