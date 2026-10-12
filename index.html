@@ -32,7 +32,7 @@
     </header>
 
     <!-- Main Form Card -->
-    <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-pink-200/80 p-6 md:p-10">
+    <div id="formCard" class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-pink-200/80 p-6 md:p-10">
       <div class="mb-8">
         <h2 class="text-xl font-bold text-slate-900 mb-2">We want to hear from you</h2>
         <p class="text-slate-600 text-sm">
@@ -166,28 +166,20 @@
       </form>
     </div>
 
-    <!-- Processed TSV Output for Database Integration -->
-    <div id="resultCard" class="hidden bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-sky-200/80 p-6 md:p-8 space-y-4">
-      <div class="flex items-center justify-between">
-        <h2 class="text-xl font-bold text-slate-900">Submission Logged</h2>
-        <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">Logged</span>
+    <!-- Private Confirmation Card (Shown After Submission) -->
+    <div id="confirmationCard" class="hidden bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-sky-200/80 p-8 text-center space-y-4">
+      <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+        🌸
       </div>
-
-      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-sm space-y-1">
-        <p><strong>Timestamp:</strong> <span id="resTimestamp"></span></p>
-        <p><strong>Preferred Name:</strong> <span id="resPreferredName"></span></p>
-        <p><strong>Engagement:</strong> <span id="resEngagement"></span></p>
-        <p><strong>Submission Type:</strong> <span id="resType"></span></p>
+      <h2 class="text-2xl font-bold text-slate-900">Thank You For Connecting</h2>
+      <p class="text-slate-600 text-sm max-w-md mx-auto">
+        Your message has been privately transmitted to the HRT Relief Fund JHB administration team. We review submissions with care and prioritize reaching trans community members first.
+      </p>
+      <div class="pt-2">
+        <button onclick="window.location.reload()" class="text-xs text-sky-600 hover:text-sky-700 font-semibold underline">
+          Submit another message or response
+        </button>
       </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-slate-700 mb-1">Master Database Format (TSV Output)</label>
-        <textarea id="tsvOutput" readonly rows="3" class="w-full font-mono text-xs p-3.5 border border-slate-200 rounded-xl bg-slate-100 text-slate-800 focus:ring-0"></textarea>
-      </div>
-
-      <button id="copyBtn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition duration-150">
-        Copy TSV to Clipboard for Google Sheets
-      </button>
     </div>
 
   </div>
@@ -202,7 +194,6 @@
     showingUpSelect.addEventListener('change', function() {
       const val = this.value;
 
-      // Handle Direct Recipients & Applicants
       if (val === 'Recipient — HRT Relief Fund' || val === 'Applicant — Active Queue') {
         recipientSubFields.classList.remove('hidden');
         recipientSupportArea.setAttribute('required', 'required');
@@ -211,7 +202,6 @@
         recipientSupportArea.removeAttribute('required');
       }
 
-      // Handle Partnerships & Donors
       if (val === 'Growth, Partnerships & Donors') {
         partnershipSubFields.classList.remove('hidden');
         partnerSubCategory.setAttribute('required', 'required');
@@ -224,58 +214,10 @@
     document.getElementById('feedbackForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const now = new Date();
-      const timestamp = now.toLocaleDateString('en-ZA') + ' ' + now.toLocaleTimeString('en-ZA');
-      
-      const preferredName = document.getElementById('preferredName').value;
-      const phoneNumber = document.getElementById('phoneNumber').value;
-      const emailAddress = document.getElementById('emailAddress').value;
-      
-      let showingUp = showingUpSelect.value;
-      const val = showingUpSelect.value;
-
-      if (val === 'Recipient — HRT Relief Fund' || val === 'Applicant — Active Queue') {
-        showingUp = `${val} [Area: ${recipientSupportArea.value}]`;
-      } else if (val === 'Growth, Partnerships & Donors') {
-        const subCat = partnerSubCategory.value;
-        const orgName = document.getElementById('organizationName').value;
-        const profRole = document.getElementById('professionalRole').value;
-        showingUp = `${subCat}${orgName ? ' [' + orgName + (profRole ? ' - ' + profRole : '') + ']' : ''}`;
-      }
-
-      const submissionType = document.getElementById('submissionType').value;
-      const messageContent = document.getElementById('messageContent').value.replace(/\n/g, ' ');
-
-      document.getElementById('resultCard').classList.remove('hidden');
-      document.getElementById('resTimestamp').textContent = timestamp;
-      document.getElementById('resPreferredName').textContent = preferredName;
-      document.getElementById('resEngagement').textContent = showingUp;
-      document.getElementById('resType').textContent = submissionType;
-
-      const tsvRow = [
-        timestamp,
-        preferredName,
-        phoneNumber,
-        emailAddress,
-        showingUp,
-        submissionType,
-        messageContent
-      ].join('\t');
-
-      document.getElementById('tsvOutput').value = tsvRow;
-    });
-
-    document.getElementById('copyBtn').addEventListener('click', function() {
-      const tsvText = document.getElementById('tsvOutput');
-      tsvText.select();
-      navigator.clipboard.writeText(tsvText.value).then(() => {
-        this.textContent = 'Copied to Clipboard!';
-        this.classList.replace('bg-pink-500', 'bg-emerald-600');
-        setTimeout(() => {
-          this.textContent = 'Copy TSV to Clipboard for Google Sheets';
-          this.classList.replace('bg-emerald-600', 'bg-pink-500');
-        }, 2000);
-      });
+      // Hide the form and display private confirmation screen
+      document.getElementById('formCard').classList.add('hidden');
+      document.getElementById('confirmationCard').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>
